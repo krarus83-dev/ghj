@@ -1,0 +1,6 @@
+'use client';
+import Link from 'next/link';
+import {useLocale} from './LocaleProvider';
+import {localizedRecipe} from '../lib/translations';
+import FavoriteButton from './FavoriteButton';
+export default function RecipeDetail({recipe}){const {lang,t}=useLocale();const r=localizedRecipe(recipe,lang);return <div className="wrap section page"><Link className="back" href="/recipes">← {t.backRecipes}</Link><div className="detail"><div className="detail-image"><img src={r.image} alt={r.title}/><FavoriteButton slug={r.slug}/></div><div className="detail-copy"><span className="eyebrow">{r.time} {t.min} · {r.servings}</span><h1 className="page-title">{r.title}</h1><h2>{t.needs}</h2><ul className="ingredients">{r.amounts.map(x=><li key={x}>{x}</li>)}</ul></div></div><section className="photo-steps"><div className="section-head"><div><span className="eyebrow">{t.stepsTag}</span><h2>{t.how} <span className="accent">✳</span></h2></div></div><ol className="step-grid">{r.steps.map((s,i)=><li key={i} className="step-card"><img src={s.image} alt={`${r.title}: ${s.title}`}/><div className="step-body"><span className="step-number">0{i+1}</span><h3>{s.title}</h3><p>{s.text}</p></div></li>)}</ol><p className="photo-note">{t.photoNote}</p></section></div>}
